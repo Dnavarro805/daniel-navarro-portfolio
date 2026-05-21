@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+:root {
+  --color-bg: #050D1A;
+  --color-bg-alt: #0A1524;
+  --color-text: #E8D4A8;
+  --color-accent: #1A60A8;
+  --color-card: #0F2845;
+  --color-border: rgba(232, 212, 168, 0.28);
+  --color-border-solid: rgba(232, 212, 168, 0.5);
+  --color-hero-glow: rgba(26, 96, 168, 0.32);
+  --color-bg-overlay: rgba(5, 13, 26, 0.96);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}

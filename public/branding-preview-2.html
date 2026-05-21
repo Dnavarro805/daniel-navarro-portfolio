@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Branding Iterations 4–6 — Daniel Navarro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & base ── */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: 'Inter', sans-serif; background: #111; color: #eee; }
+  body { padding: 56px 24px 120px; }
+
+  /* ── Page title ── */
+  .page-title {
+    max-width: 1280px; margin: 0 auto 56px;
+    font-weight: 300; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; color: #666; font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── Card wrapper ── */
+  .card {
+    max-width: 1280px; margin: 0 auto 96px;
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 8px 60px rgba(0,0,0,0.6);
+  }
+
+  /* ── Card header strip ── */
+  .card-header {
+    padding: 28px 36px 24px;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+  }
+  .card-header h2 { font-weight: 300; font-size: 36px; letter-spacing: -1.5px; line-height: 1; }
+  .card-header p { font-size: 13px; line-height: 1.5; max-width: 560px; opacity: 0.7; }
+  .card-header .tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 1px; opacity: 0.5; white-space: nowrap;
+  }
+
+  /* ── Swatches ── */
+  .swatches { display: flex; gap: 8px; padding: 20px 36px; flex-wrap: wrap; }
+  .swatch { border-radius: 8px; overflow: hidden; min-width: 100px; flex: 1; border: 1px solid rgba(255,255,255,0.08); }
+  .swatch .chip { height: 52px; }
+  .swatch .meta { padding: 7px 10px; font-size: 10px; font-family: 'JetBrains Mono', monospace; line-height: 1.5; opacity: 0.7; }
+  .swatch .meta strong { display: block; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 11px; opacity: 1; margin-bottom: 1px; }
+
+  /* ── Section label ── */
+  .sec-label {
+    display: block; padding: 8px 14px; font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; font-family: 'JetBrains Mono', monospace; opacity: 0.5;
+  }
+
+  /* ── Hero mock ── */
+  .hero {
+    position: relative; height: 320px; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between; padding: 24px 32px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; background-size: cover; background-position: center;
+  }
+  .hero-overlay { position: absolute; inset: 0; }
+  .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+  .hero-nav { display: flex; justify-content: space-between; align-items: center; }
+  .hero-brand { font-weight: 600; font-size: 15px; }
+  .hero-btn { padding: 8px 18px; border-radius: 999px; font-size: 12px; font-weight: 500; border: none; cursor: default; }
+  .hero-name { font-weight: 300; font-size: 86px; letter-spacing: -5px; line-height: 0.85; }
+
+  /* ── Services mock ── */
+  .services {
+    padding: 32px 36px;
+    display: flex; gap: 40px; align-items: flex-start;
+  }
+  .svc-title-col { flex: 1; }
+  .svc-title-col h3 { font-weight: 300; font-size: 52px; letter-spacing: -3px; line-height: 0.9; }
+  .svc-rows { flex: 1.4; display: flex; flex-direction: column; gap: 14px; }
+  .svc-row { display: flex; align-items: center; gap: 16px; padding-bottom: 14px; border-bottom: 1px solid; }
+  .svc-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.5; }
+  .svc-name { font-style: italic; font-weight: 700; font-size: 22px; letter-spacing: -0.8px; flex: 1; }
+  .svc-thumb { width: 56px; height: 56px; border-radius: 4px; flex-shrink: 0; background-size: cover; background-position: center; }
+
+  /* ── Testimonials mock ── */
+  .testimonials {
+    position: relative; height: 200px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .test-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .test-overlay { position: absolute; inset: 0; }
+  .test-heading { position: relative; z-index: 2; font-weight: 500; font-size: 90px; letter-spacing: -5px; line-height: 1; }
+  .test-card {
+    position: absolute; z-index: 3; padding: 16px 18px; border-radius: 4px;
+    width: 200px; transform: rotate(-4deg); top: 32px; right: 80px; font-size: 11px; line-height: 1.4;
+  }
+  .test-card .author { font-weight: 900; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px; }
+
+  /* ── Footer mock ── */
+  .footer {
+    padding: 28px 36px; position: relative; overflow: hidden;
+  }
+  .footer-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .footer-overlay { position: absolute; inset: 0; }
+  .footer-inner { position: relative; z-index: 2; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 20px; border-bottom: 1px solid; margin-bottom: 20px; }
+  .footer-cta-label { font-style: italic; font-weight: 300; font-size: 16px; letter-spacing: -0.5px; text-transform: uppercase; }
+  .footer-cta-label b { font-style: normal; font-weight: 900; }
+  .footer-btn { display: inline-block; margin-top: 8px; padding: 7px 16px; border-radius: 999px; font-size: 11px; cursor: default; }
+  .footer-social { font-size: 12px; line-height: 1.6; text-transform: uppercase; text-align: right; }
+  .footer-wordmark { font-weight: 600; font-size: 120px; letter-spacing: -7px; line-height: 0.8; white-space: nowrap; overflow: hidden; }
+
+  /* ══════════════════════════════════════════════
+     OPTION 4 — OBSIDIAN STUDIO
+     Dark textured dominant, marble in testimonials,
+     burnt orange as accent fire
+  ══════════════════════════════════════════════ */
+  .o4-header { background: #0a0a0a; color: #e8d4a8; }
+  .o4-swatches { background: #111; }
+
+  .o4-hero .hero-bg {
+    background-image: url('/texture-dark.png');
+    background-size: cover;
+  }
+  .o4-hero .hero-overlay { background: linear-gradient(to top, rgba(0,0,0,0.65) 30%, rgba(0,0,0,0.2) 100%); }
+  .o4-hero .hero-brand { color: #e8d4a8; }
+  .o4-hero .hero-btn { background: #C4571A; color: #fff; }
+  .o4-hero .hero-name { color: #e8d4a8; }
+  .o4-hero .hero-nav a { color: #e8d4a8; font-size: 13px; font-weight: 500; opacity: 0.7; }
+
+  .o4-services { background: #0d0d0d; }
+  .o4-services h3 { color: #e8d4a8; }
+  .o4-services .svc-row { border-color: rgba(232,212,168,0.15); }
+  .o4-services .svc-num { color: #C4571A; }
+  .o4-services .svc-name { color: #e8d4a8; }
+
+  .o4-test .test-bg {
+    background-image: url('/texture-marble.png');
+    background-size: cover;
+  }
+  .o4-test .test-overlay { background: rgba(0,0,0,0.55); }
+  .o4-test .test-heading { color: rgba(232,212,168,0.9); }
+  .o4-test .test-card { background: rgba(196,87,26,0.9); color: #fff; }
+
+  .o4-footer { background: #0a0a0a; }
+  .o4-footer .footer-top { border-color: rgba(232,212,168,0.2); }
+  .o4-footer .footer-cta-label { color: #e8d4a8; }
+  .o4-footer .footer-cta-label b { color: #C4571A; }
+  .o4-footer .footer-btn { border: 1px solid #C4571A; color: #C4571A; background: transparent; }
+  .o4-footer .footer-social { color: rgba(232,212,168,0.6); }
+  .o4-footer .footer-wordmark { color: rgba(232,212,168,0.12); }
+
+  /* ══════════════════════════════════════════════
+     OPTION 5 — MARBLE WARMTH
+     Marble as the prestige surface for hero + test,
+     parchment for reading sections, burnt orange fire
+  ══════════════════════════════════════════════ */
+  .o5-header { background: #2a2420; color: #f0e3c8; }
+  .o5-swatches { background: #1e1a17; }
+
+  .o5-hero .hero-bg {
+    background-image: url('/texture-marble.png');
+    background-size: cover; background-position: 50% 30%;
+  }
+  .o5-hero .hero-overlay { background: linear-gradient(135deg, rgba(20,12,8,0.72) 0%, rgba(20,12,8,0.3) 100%); }
+  .o5-hero .hero-brand { color: #f0e3c8; }
+  .o5-hero .hero-btn { background: #C4571A; color: #fff; }
+  .o5-hero .hero-name { color: #f0e3c8; }
+  .o5-hero .hero-nav a { color: #f0e3c8; font-size: 13px; font-weight: 500; opacity: 0.7; }
+
+  .o5-services { background: #f0e3c8; }
+  .o5-services h3 { color: #1a0f08; }
+  .o5-services .svc-row { border-color: rgba(26,15,8,0.15); }
+  .o5-services .svc-num { color: #C4571A; }
+  .o5-services .svc-name { color: #1a0f08; }
+
+  .o5-test .test-bg {
+    background-image: url('/texture-marble.png');
+    background-size: cover; background-position: 50% 60%;
+  }
+  .o5-test .test-overlay { background: rgba(10,6,4,0.6); }
+  .o5-test .test-heading { color: rgba(240,227,200,0.88); }
+  .o5-test .test-card { background: #f0e3c8; color: #1a0f08; }
+  .o5-test .test-card .author { color: #C4571A; }
+
+  .o5-footer { background: #1a0f08; }
+  .o5-footer .footer-top { border-color: rgba(240,227,200,0.2); }
+  .o5-footer .footer-cta-label { color: #f0e3c8; }
+  .o5-footer .footer-cta-label b { color: #C4571A; }
+  .o5-footer .footer-btn { border: 1px solid #f0e3c8; color: #f0e3c8; background: transparent; }
+  .o5-footer .footer-social { color: rgba(240,227,200,0.55); }
+  .o5-footer .footer-wordmark { color: #C4571A; opacity: 0.25; }
+
+  /* ══════════════════════════════════════════════
+     OPTION 6 — DESERT FORGE
+     Dark texture hero, parchment body, marble for
+     testimonials — burnt orange is TYPE, not accent
+  ══════════════════════════════════════════════ */
+  .o6-header { background: #1c1008; color: #f0e3c8; }
+  .o6-swatches { background: #160d05; }
+
+  .o6-hero .hero-bg {
+    background-image: url('/texture-dark.png');
+    background-size: cover;
+  }
+  .o6-hero .hero-overlay {
+    background: linear-gradient(to bottom, rgba(196,87,26,0.18) 0%, rgba(10,6,2,0.7) 100%);
+  }
+  .o6-hero .hero-brand { color: #f0e3c8; }
+  .o6-hero .hero-btn { background: #f0e3c8; color: #1a0a02; }
+  .o6-hero .hero-name { color: #C4571A; }
+  .o6-hero .hero-nav a { color: #f0e3c8; font-size: 13px; font-weight: 500; opacity: 0.7; }
+
+  .o6-services { background: #f0e3c8; }
+  .o6-services h3 { color: #C4571A; }
+  .o6-services .svc-row { border-color: rgba(196,87,26,0.2); }
+  .o6-services .svc-num { color: rgba(26,10,2,0.4); }
+  .o6-services .svc-name { color: #1a0a02; }
+
+  .o6-test .test-bg {
+    background-image: url('/texture-marble.png');
+    background-size: cover; background-position: center;
+  }
+  .o6-test .test-overlay { background: rgba(26,10,2,0.62); }
+  .o6-test .test-heading { color: #C4571A; }
+  .o6-test .test-card { background: #f0e3c8; color: #1a0a02; }
+  .o6-test .test-card .author { color: #C4571A; }
+
+  .o6-footer { }
+  .o6-footer .footer-bg {
+    background-image: url('/texture-dark.png');
+    background-size: cover;
+  }
+  .o6-footer .footer-overlay { background: rgba(10,4,0,0.78); }
+  .o6-footer .footer-top { border-color: rgba(196,87,26,0.4); }
+  .o6-footer .footer-cta-label { color: #f0e3c8; }
+  .o6-footer .footer-cta-label b { color: #C4571A; }
+  .o6-footer .footer-btn { border: 1px solid #C4571A; color: #C4571A; background: transparent; }
+  .o6-footer .footer-social { color: rgba(240,227,200,0.5); }
+  .o6-footer .footer-wordmark { color: #C4571A; }
+</style>
+</head>
+<body>
+
+<p class="page-title">[ Options 04 – 06 ] — Burnt orange &amp; texture iterations</p>
+
+<!-- ══════════════════════════════════════════════════════
+     OPTION 4 — OBSIDIAN STUDIO
+════════════════════════════════════════════════════════ -->
+<div class="card">
+
+  <div class="card-header o4-header">
+    <div>
+      <div class="tag">Option 04</div>
+      <h2>Obsidian Studio</h2>
+    </div>
+    <p>Dark texture is the primary surface throughout. Marble appears behind Testimonials. Burnt orange is pure accent — fire in the dark. Extremely moody, high-contrast, photography-studio energy.</p>
+  </div>
+
+  <div class="swatches o4-swatches">
+    <div class="swatch"><div class="chip" style="background-image:url('/texture-dark.png');background-size:cover;"></div><div class="meta" style="background:#111;color:#aaa;"><strong>Texture bg</strong>dark.png</div></div>
+    <div class="swatch"><div class="chip" style="background:#0d0d0d;"></div><div class="meta" style="background:#111;color:#aaa;"><strong>Section bg</strong>#0D0D0D</div></div>
+    <div class="swatch"><div class="chip" style="background:#C4571A;"></div><div class="meta" style="background:#111;color:#aaa;"><strong>Burnt orange</strong>#C4571A</div></div>
+    <div class="swatch"><div class="chip" style="background:#E8D4A8;"></div><div class="meta" style="background:#111;color:#aaa;"><strong>Parchment</strong>#E8D4A8</div></div>
+    <div class="swatch"><div class="chip" style="background-image:url('/texture-marble.png');background-size:cover;"></div><div class="meta" style="background:#111;color:#aaa;"><strong>Marble accent</strong>marble.png</div></div>
+  </div>
+
+  <span class="sec-label" style="background:#0a0a0a;">Hero</span>
+  <div class="hero o4-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-nav">
+        <span class="hero-brand">Navarro.Design</span>
+        <div style="display:flex;gap:28px;">
+          <a style="color:#e8d4a8;font-size:12px;font-weight:500;opacity:0.6;text-decoration:none;">About</a>
+          <a style="color:#e8d4a8;font-size:12px;font-weight:500;opacity:0.6;text-decoration:none;">Services</a>
+          <a style="color:#e8d4a8;font-size:12px;font-weight:500;opacity:0.6;text-decoration:none;">Projects</a>
+        </div>
+        <button class="hero-btn">Let's talk</button>
+      </div>
+      <div class="hero-name">Daniel<br/>Navarro</div>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#0d0d0d;">Services</span>
+  <div class="services o4-services">
+    <div class="svc-title-col">
+      <h3>[4]<br/>Deliverables</h3>
+    </div>
+    <div class="svc-rows">
+      <div class="svc-row">
+        <span class="svc-num">[ 1 ]</span>
+        <span class="svc-name">Brand Discovery</span>
+        <div class="svc-thumb" style="background:#C4571A;opacity:0.4;"></div>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">[ 2 ]</span>
+        <span class="svc-name">Web Design &amp; Dev</span>
+        <div class="svc-thumb" style="background:#1a1a1a;"></div>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">[ 3 ]</span>
+        <span class="svc-name">Photography</span>
+        <div class="svc-thumb" style="background:#C4571A;opacity:0.25;"></div>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#0a0a0a;">Testimonials — marble texture</span>
+  <div class="testimonials o4-test">
+    <div class="test-bg"></div>
+    <div class="test-overlay"></div>
+    <div class="test-heading">Testimonials</div>
+    <div class="test-card">
+      <p>"Professional, precise, and incredibly fast at handling complex product visualizations."</p>
+      <p class="author" style="color:#fff;opacity:0.7;">— Lukas Weber</p>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#0a0a0a;">Footer</span>
+  <div class="footer o4-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-cta-label">Have a <b>project</b> in mind?</div>
+          <span class="footer-btn">Let's talk</span>
+        </div>
+        <div class="footer-social">Facebook<br/>Instagram<br/>X.com<br/>LinkedIn</div>
+      </div>
+      <div class="footer-wordmark">H.Studio</div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     OPTION 5 — MARBLE WARMTH
+════════════════════════════════════════════════════════ -->
+<div class="card">
+
+  <div class="card-header o5-header">
+    <div>
+      <div class="tag">Option 05</div>
+      <h2>Marble Warmth</h2>
+    </div>
+    <p>Marble is the prestige surface — hero and testimonials. Warm parchment grounds the reading sections. Burnt orange ignites CTAs and number labels. High-end gallery meets craft studio.</p>
+  </div>
+
+  <div class="swatches o5-swatches">
+    <div class="swatch"><div class="chip" style="background-image:url('/texture-marble.png');background-size:cover;"></div><div class="meta" style="background:#1a1510;color:#aaa;"><strong>Hero bg</strong>marble.png</div></div>
+    <div class="swatch"><div class="chip" style="background:#f0e3c8;"></div><div class="meta" style="background:#1a1510;color:#aaa;"><strong>Section bg</strong>#F0E3C8</div></div>
+    <div class="swatch"><div class="chip" style="background:#1a0f08;"></div><div class="meta" style="background:#1a1510;color:#aaa;"><strong>Ink</strong>#1A0F08</div></div>
+    <div class="swatch"><div class="chip" style="background:#C4571A;"></div><div class="meta" style="background:#1a1510;color:#aaa;"><strong>Burnt orange</strong>#C4571A</div></div>
+    <div class="swatch"><div class="chip" style="background:#C89856;"></div><div class="meta" style="background:#1a1510;color:#aaa;"><strong>Gold</strong>#C89856</div></div>
+  </div>
+
+  <span class="sec-label" style="background:#2a2420;color:#f0e3c8;">Hero</span>
+  <div class="hero o5-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-nav">
+        <span class="hero-brand">Navarro.Design</span>
+        <div style="display:flex;gap:28px;">
+          <a style="color:#f0e3c8;font-size:12px;font-weight:500;opacity:0.65;text-decoration:none;">About</a>
+          <a style="color:#f0e3c8;font-size:12px;font-weight:500;opacity:0.65;text-decoration:none;">Services</a>
+          <a style="color:#f0e3c8;font-size:12px;font-weight:500;opacity:0.65;text-decoration:none;">Projects</a>
+        </div>
+        <button class="hero-btn">Let's talk</button>
+      </div>
+      <div class="hero-name">Daniel<br/>Navarro</div>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#f0e3c8;color:#1a0f08;">Services — parchment</span>
+  <div class="services o5-services">
+    <div class="svc-title-col">
+      <h3>[4]<br/>Deliverables</h3>
+    </div>
+    <div class="svc-rows">
+      <div class="svc-row">
+        <span class="svc-num">[ 1 ]</span>
+        <span class="svc-name">Brand Discovery</span>
+        <div class="svc-thumb" style="background:#c4b89a;"></div>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">[ 2 ]</span>
+        <span class="svc-name">Web Design &amp; Dev</span>
+        <div class="svc-thumb" style="background:#d4c4a8;"></div>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">[ 3 ]</span>
+        <span class="svc-name">Photography</span>
+        <div class="svc-thumb" style="background:#bfb49a;"></div>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#1a0f08;color:#f0e3c8;">Testimonials — marble texture</span>
+  <div class="testimonials o5-test">
+    <div class="test-bg"></div>
+    <div class="test-overlay"></div>
+    <div class="test-heading">Testimonials</div>
+    <div class="test-card">
+      <p>"Professional, precise, and incredibly fast at handling complex product visualizations."</p>
+      <p class="author">— Lukas Weber</p>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#1a0f08;color:#f0e3c8;">Footer</span>
+  <div class="footer o5-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-cta-label">Have a <b>project</b> in mind?</div>
+          <span class="footer-btn">Let's talk</span>
+        </div>
+        <div class="footer-social">Facebook<br/>Instagram<br/>X.com<br/>LinkedIn</div>
+      </div>
+      <div class="footer-wordmark">H.Studio</div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     OPTION 6 — DESERT FORGE
+════════════════════════════════════════════════════════ -->
+<div class="card">
+
+  <div class="card-header o6-header">
+    <div>
+      <div class="tag">Option 06</div>
+      <h2>Desert Forge</h2>
+    </div>
+    <p>Burnt orange becomes the type color — headings, wordmark, the Testimonials word. Dark texture only in the Hero + Footer. Marble behind Testimonials. Parchment for all content. Most connected to the album art's warmth.</p>
+  </div>
+
+  <div class="swatches o6-swatches">
+    <div class="swatch"><div class="chip" style="background-image:url('/texture-dark.png');background-size:cover;"></div><div class="meta" style="background:#160d05;color:#aaa;"><strong>Hero/Footer</strong>dark.png</div></div>
+    <div class="swatch"><div class="chip" style="background:#f0e3c8;"></div><div class="meta" style="background:#160d05;color:#aaa;"><strong>Content bg</strong>#F0E3C8</div></div>
+    <div class="swatch"><div class="chip" style="background:#C4571A;"></div><div class="meta" style="background:#160d05;color:#aaa;"><strong>Burnt orange</strong>#C4571A</div></div>
+    <div class="swatch"><div class="chip" style="background:#1a0a02;"></div><div class="meta" style="background:#160d05;color:#aaa;"><strong>Deep ink</strong>#1A0A02</div></div>
+    <div class="swatch"><div class="chip" style="background-image:url('/texture-marble.png');background-size:cover;"></div><div class="meta" style="background:#160d05;color:#aaa;"><strong>Testimonials</strong>marble.png</div></div>
+  </div>
+
+  <span class="sec-label" style="background:#0a0400;color:#f0e3c8;">Hero</span>
+  <div class="hero o6-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-nav">
+        <span class="hero-brand">Navarro.Design</span>
+        <div style="display:flex;gap:28px;">
+          <a style="color:#f0e3c8;font-size:12px;font-weight:500;opacity:0.65;text-decoration:none;">About</a>
+          <a style="color:#f0e3c8;font-size:12px;font-weight:500;opacity:0.65;text-decoration:none;">Services</a>
+          <a style="color:#f0e3c8;font-size:12px;font-weight:500;opacity:0.65;text-decoration:none;">Projects</a>
+        </div>
+        <button class="hero-btn">Let's talk</button>
+      </div>
+      <div class="hero-name">Daniel<br/>Navarro</div>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#f0e3c8;color:#1a0a02;">Services — parchment, burnt orange headings</span>
+  <div class="services o6-services">
+    <div class="svc-title-col">
+      <h3>[4]<br/>Deliverables</h3>
+    </div>
+    <div class="svc-rows">
+      <div class="svc-row">
+        <span class="svc-num">[ 1 ]</span>
+        <span class="svc-name" style="color:#1a0a02;">Brand Discovery</span>
+        <div class="svc-thumb" style="background:#d4c4a8;"></div>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">[ 2 ]</span>
+        <span class="svc-name" style="color:#1a0a02;">Web Design &amp; Dev</span>
+        <div class="svc-thumb" style="background:#c4b89a;"></div>
+      </div>
+      <div class="svc-row">
+        <span class="svc-num">[ 3 ]</span>
+        <span class="svc-name" style="color:#1a0a02;">Photography</span>
+        <div class="svc-thumb" style="background:#bfb49a;"></div>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#1a0a02;color:#f0e3c8;">Testimonials — marble + burnt orange heading</span>
+  <div class="testimonials o6-test">
+    <div class="test-bg"></div>
+    <div class="test-overlay"></div>
+    <div class="test-heading">Testimonials</div>
+    <div class="test-card" style="transform:rotate(3deg);top:28px;right:60px;">
+      <p>"Professional, precise, and incredibly fast at handling complex product visualizations."</p>
+      <p class="author">— Lukas Weber</p>
+    </div>
+  </div>
+
+  <span class="sec-label" style="background:#0a0400;color:#f0e3c8;">Footer — dark texture</span>
+  <div class="footer o6-footer">
+    <div class="footer-bg"></div>
+    <div class="footer-overlay"></div>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-cta-label">Have a <b>project</b> in mind?</div>
+          <span class="footer-btn">Let's talk</span>
+        </div>
+        <div class="footer-social">Facebook<br/>Instagram<br/>X.com<br/>LinkedIn</div>
+      </div>
+      <div class="footer-wordmark">H.Studio</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

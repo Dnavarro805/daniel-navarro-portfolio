@@ -1,8 +1,25 @@
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Bio from "@/components/Bio";
+import FullbleedPhoto from "@/components/FullbleedPhoto";
+import Services from "@/components/Services";
+import Portfolio from "@/components/Portfolio";
+import Testimonials from "@/components/Testimonials";
+import News from "@/components/News";
+import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
-      <h1 className="text-6xl font-bold tracking-tight">Daniel Navarro</h1>
-      <p className="mt-4 text-xl text-gray-400 tracking-widest uppercase">Portfolio coming soon</p>
+    <main>
+      <Hero />
+      <About />
+      <Bio />
+      <FullbleedPhoto />
+      <Services />
+      <Portfolio />
+      <Testimonials />
+      <News />
+      <Footer />
     </main>
   );
 }

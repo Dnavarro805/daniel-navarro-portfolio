@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Golden Hour vs Obsidian Studio — Daniel Navarro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: 'Inter', sans-serif; background: #1a1a1a; color: #ccc; }
+  body { padding: 40px 24px 100px; }
+
+  h1 {
+    max-width: 1360px; margin: 0 auto 40px;
+    font-weight: 300; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; color: #555; font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── Two-column grid ── */
+  .grid {
+    max-width: 1360px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+
+  /* Column headers */
+  .col-header {
+    padding: 20px 28px 16px; border-radius: 12px 12px 0 0; margin-bottom: 2px;
+  }
+  .col-header .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; margin-bottom: 6px; }
+  .col-header h2 { font-weight: 300; font-size: 28px; letter-spacing: -1px; }
+
+  /* Section strip */
+  .strip { margin-bottom: 2px; border-radius: 4px; overflow: hidden; }
+  .strip-label {
+    padding: 6px 16px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 280px; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between; padding: 20px 28px;
+  }
+  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .hero-overlay { position: absolute; inset: 0; }
+  .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+  .hero-nav { display: flex; justify-content: space-between; align-items: center; }
+  .hero-brand { font-weight: 600; font-size: 14px; }
+  .hero-btn { padding: 7px 16px; border-radius: 999px; font-size: 11px; font-weight: 500; border: none; cursor: default; }
+  .hero-name { font-weight: 300; font-size: 80px; letter-spacing: -5px; line-height: 0.85; }
+
+  /* ── SERVICES ── */
+  .services { padding: 24px 28px; display: flex; gap: 32px; }
+  .svc-title { flex: 1; }
+  .svc-title h3 { font-weight: 300; font-size: 48px; letter-spacing: -3px; line-height: 0.9; }
+  .svc-list { flex: 1.5; display: flex; flex-direction: column; gap: 12px; }
+  .svc-row { display: flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid; }
+  .svc-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.5; }
+  .svc-name { font-style: italic; font-weight: 700; font-size: 20px; letter-spacing: -0.7px; flex: 1; }
+  .svc-thumb { width: 48px; height: 48px; border-radius: 3px; background: #888; flex-shrink: 0; }
+
+  /* ── PORTFOLIO ── */
+  .portfolio { padding: 24px 28px; }
+  .port-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px; }
+  .port-title { font-weight: 300; font-size: 56px; letter-spacing: -4px; line-height: 0.86; }
+  .port-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.5; }
+  .port-images { display: flex; gap: 12px; }
+  .port-img { flex: 1; height: 180px; background: #888; border-radius: 4px; overflow: hidden; position: relative; }
+  .port-img img { width: 100%; height: 100%; object-fit: cover; }
+  .port-img-tag {
+    position: absolute; bottom: 8px; left: 8px;
+    padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 500;
+  }
+  .port-img-title { font-weight: 900; font-size: 14px; letter-spacing: -0.5px; text-transform: uppercase; margin-top: 6px; }
+  .port-card { flex: 1; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    position: relative; height: 180px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .test-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .test-overlay { position: absolute; inset: 0; }
+  .test-word { position: relative; z-index: 2; font-weight: 500; font-size: 80px; letter-spacing: -5px; line-height: 1; white-space: nowrap; }
+  .test-card {
+    position: absolute; z-index: 3; padding: 14px 16px; border-radius: 4px;
+    width: 180px; transform: rotate(-4deg); top: 24px; right: 40px; font-size: 10px; line-height: 1.4;
+  }
+  .test-card .author { font-weight: 900; font-size: 9px; text-transform: uppercase; margin-top: 6px; }
+
+  /* ── NEWS ── */
+  .news { padding: 24px 28px; }
+  .news h3 { font-weight: 300; font-size: 22px; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
+  .news-cards { display: flex; gap: 12px; }
+  .news-card { flex: 1; }
+  .news-card .thumb { height: 120px; border-radius: 4px; background-size: cover; background-position: center; margin-bottom: 8px; }
+  .news-card .excerpt { font-size: 10px; line-height: 1.5; opacity: 0.7; }
+  .news-divider { width: 1px; }
+
+  /* ── FOOTER ── */
+  .footer { padding: 24px 28px; }
+  .footer-top { display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid; margin-bottom: 16px; }
+  .footer-cta-label { font-style: italic; font-weight: 300; font-size: 15px; letter-spacing: -0.4px; text-transform: uppercase; }
+  .footer-cta-label b { font-style: normal; font-weight: 900; }
+  .footer-btn { display: inline-block; margin-top: 6px; padding: 6px 14px; border-radius: 999px; font-size: 10px; cursor: default; }
+  .footer-social { font-size: 11px; line-height: 1.7; text-transform: uppercase; text-align: right; opacity: 0.6; }
+  .footer-wordmark { font-weight: 600; font-size: 100px; letter-spacing: -6px; line-height: 0.8; white-space: nowrap; overflow: hidden; }
+
+  /* ═══════════════════════════
+     GOLDEN HOUR — left column
+  ═══════════════════════════ */
+  .gh { background: #F0E3C8; color: #0F1A2A; }
+  .gh .col-header { background: #E8D4A8; color: #0F1A2A; }
+  .gh .strip-label { background: #ddd0b0; color: #0F1A2A; opacity: 0.7; font-size: 9px; }
+
+  /* Hero */
+  .gh .hero { background: #F0E3C8; }
+  .gh .hero-brand { color: #0F1A2A; }
+  .gh .hero-btn { background: #0F1A2A; color: #F0E3C8; }
+  .gh .hero-name { color: #0F1A2A; }
+
+  /* Services */
+  .gh .services { background: #0F1A2A; }
+  .gh .svc-title h3 { color: #F0E3C8; }
+  .gh .svc-row { border-color: rgba(240,227,200,0.15); }
+  .gh .svc-num { color: #F0E3C8; }
+  .gh .svc-name { color: #F0E3C8; }
+
+  /* Portfolio */
+  .gh .portfolio { background: #F0E3C8; }
+  .gh .port-title { color: #0F1A2A; }
+  .gh .port-label { color: #0F1A2A; }
+  .gh .port-img-tag { background: rgba(255,255,255,0.3); color: #0F1A2A; }
+  .gh .port-img-title { color: #0F1A2A; }
+  .gh .port-cta-btn { background: #0F1A2A; color: #F0E3C8; padding: 8px 14px; border-radius: 999px; font-size: 11px; display: inline-block; margin-top: 8px; }
+
+  /* Testimonials */
+  .gh .testimonials { background: #F0E3C8; }
+  .gh .test-word { color: #0F1A2A; }
+  .gh .test-card { background: #F0E3C8; border: 1px solid rgba(15,26,42,0.15); color: #0F1A2A; }
+
+  /* News */
+  .gh .news { background: #E8D4A8; }
+  .gh .news h3 { color: #0F1A2A; }
+  .gh .news-divider { background: #0F1A2A; }
+  .gh .news-card .excerpt { color: #0F1A2A; }
+
+  /* Footer */
+  .gh .footer { background: #0F1A2A; }
+  .gh .footer-top { border-color: rgba(240,227,200,0.2); }
+  .gh .footer-cta-label { color: #F0E3C8; }
+  .gh .footer-cta-label b { color: #C89856; }
+  .gh .footer-btn { border: 1px solid #F0E3C8; color: #F0E3C8; }
+  .gh .footer-social { color: #F0E3C8; }
+  .gh .footer-wordmark { color: rgba(240,227,200,0.15); }
+
+  /* ═══════════════════════════
+     OBSIDIAN STUDIO — right col
+  ═══════════════════════════ */
+  .ob { background: #0A0A0A; color: #E8D4A8; }
+  .ob .col-header { background: #111; color: #E8D4A8; }
+  .ob .strip-label { background: #0d0d0d; color: #C4571A; opacity: 0.9; font-size: 9px; }
+
+  /* Hero */
+  .ob .hero-bg {
+    background-image: url('/texture-dark.png');
+    background-size: cover;
+  }
+  .ob .hero-overlay { background: linear-gradient(to top, rgba(196,87,26,0.2) 0%, rgba(0,0,0,0.3) 100%); }
+  .ob .hero-brand { color: #E8D4A8; }
+  .ob .hero-btn { background: #C4571A; color: #fff; }
+  .ob .hero-name { color: #E8D4A8; }
+
+  /* Services */
+  .ob .services { background: #0D0D0D; }
+  .ob .svc-title h3 { color: #E8D4A8; }
+  .ob .svc-row { border-color: rgba(232,212,168,0.12); }
+  .ob .svc-num { color: #C4571A; }
+  .ob .svc-name { color: #E8D4A8; }
+
+  /* Portfolio */
+  .ob .portfolio { background: #0A0A0A; }
+  .ob .port-title { color: #E8D4A8; }
+  .ob .port-label { color: #E8D4A8; }
+  .ob .port-img-tag { background: rgba(232,212,168,0.15); color: #E8D4A8; }
+  .ob .port-img-title { color: #E8D4A8; }
+  .ob .port-cta-btn { background: #C4571A; color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 11px; display: inline-block; margin-top: 8px; }
+
+  /* Testimonials */
+  .ob .test-bg { background-image: url('/texture-marble.png'); background-size: cover; }
+  .ob .test-overlay { background: rgba(0,0,0,0.58); }
+  .ob .test-word { color: #E8D4A8; }
+  .ob .test-card { background: #C4571A; border: 1px solid #C4571A; color: #fff; }
+  .ob .test-card .author { opacity: 0.7; }
+
+  /* News */
+  .ob .news { background: #0D0D0D; }
+  .ob .news h3 { color: #E8D4A8; }
+  .ob .news-divider { background: rgba(232,212,168,0.2); }
+  .ob .news-card .excerpt { color: #E8D4A8; }
+
+  /* Footer */
+  .ob .footer { background: #0A0A0A; }
+  .ob .footer-top { border-color: rgba(232,212,168,0.15); }
+  .ob .footer-cta-label { color: #E8D4A8; }
+  .ob .footer-cta-label b { color: #C4571A; }
+  .ob .footer-btn { border: 1px solid #C4571A; color: #C4571A; }
+  .ob .footer-social { color: #E8D4A8; }
+  .ob .footer-wordmark { color: rgba(196,87,26,0.12); }
+</style>
+</head>
+<body>
+
+<h1>[ Side-by-side ] Golden Hour ← vs → Obsidian Studio</h1>
+
+<div class="grid">
+
+  <!-- ════════ COLUMN HEADERS ════════ -->
+  <div class="col-header gh">
+    <div class="label">Option 02 — Current</div>
+    <h2>Golden Hour</h2>
+  </div>
+  <div class="col-header ob">
+    <div class="label">Option 04 — Applied</div>
+    <h2>Obsidian Studio</h2>
+  </div>
+
+  <!-- ════════ HERO ════════ -->
+  <div class="strip gh">
+    <div class="strip-label">Hero</div>
+    <div class="hero gh">
+      <div class="hero-inner">
+        <div class="hero-nav">
+          <span class="hero-brand">Navarro.Design</span>
+          <button class="hero-btn">Let's talk</button>
+        </div>
+        <div class="hero-name">Daniel<br/>Navarro</div>
+      </div>
+    </div>
+  </div>
+  <div class="strip ob">
+    <div class="strip-label">Hero</div>
+    <div class="hero ob">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-inner">
+        <div class="hero-nav">
+          <span class="hero-brand">Navarro.Design</span>
+          <button class="hero-btn">Let's talk</button>
+        </div>
+        <div class="hero-name">Daniel<br/>Navarro</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SERVICES ════════ -->
+  <div class="strip gh">
+    <div class="strip-label">Services</div>
+    <div class="services gh">
+      <div class="svc-title"><h3>[4]<br/>Deliverables</h3></div>
+      <div class="svc-list">
+        <div class="svc-row"><span class="svc-num">[ 1 ]</span><span class="svc-name">Brand Discovery</span><div class="svc-thumb" style="background:#2a3a4f;"></div></div>
+        <div class="svc-row"><span class="svc-num">[ 2 ]</span><span class="svc-name">Web Design &amp; Dev</span><div class="svc-thumb" style="background:#1f2a3d;"></div></div>
+        <div class="svc-row"><span class="svc-num">[ 3 ]</span><span class="svc-name">Photography</span><div class="svc-thumb" style="background:#2a3a4f;"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="strip ob">
+    <div class="strip-label">Services</div>
+    <div class="services ob">
+      <div class="svc-title"><h3>[4]<br/>Deliverables</h3></div>
+      <div class="svc-list">
+        <div class="svc-row"><span class="svc-num">[ 1 ]</span><span class="svc-name">Brand Discovery</span><div class="svc-thumb" style="background:#1a1a1a;"></div></div>
+        <div class="svc-row"><span class="svc-num">[ 2 ]</span><span class="svc-name">Web Design &amp; Dev</span><div class="svc-thumb" style="background:#1a1a1a;"></div></div>
+        <div class="svc-row"><span class="svc-num">[ 3 ]</span><span class="svc-name">Photography</span><div class="svc-thumb" style="background:#1a1a1a;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PORTFOLIO ════════ -->
+  <div class="strip gh">
+    <div class="strip-label">Portfolio</div>
+    <div class="portfolio gh">
+      <div class="port-header">
+        <div class="port-title">Selected<br/>Work</div>
+        <span class="port-label">004</span>
+      </div>
+      <div class="port-images">
+        <div class="port-card">
+          <div class="port-img"><img src="/project-1.jpg" /><span class="port-img-tag gh">Photography</span></div>
+          <div class="port-img-title gh">Surfers Paradise</div>
+        </div>
+        <div class="port-card">
+          <div class="port-img"><img src="/project-3.jpg" /><span class="port-img-tag gh">Social Media</span></div>
+          <div class="port-img-title gh">Agency 976</div>
+        </div>
+        <div style="display:flex;align-items:flex-end;">
+          <span class="port-cta-btn gh">Let's talk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="strip ob">
+    <div class="strip-label">Portfolio</div>
+    <div class="portfolio ob">
+      <div class="port-header">
+        <div class="port-title">Selected<br/>Work</div>
+        <span class="port-label">004</span>
+      </div>
+      <div class="port-images">
+        <div class="port-card">
+          <div class="port-img"><img src="/project-1.jpg" /><span class="port-img-tag ob">Photography</span></div>
+          <div class="port-img-title ob">Surfers Paradise</div>
+        </div>
+        <div class="port-card">
+          <div class="port-img"><img src="/project-3.jpg" /><span class="port-img-tag ob">Social Media</span></div>
+          <div class="port-img-title ob">Agency 976</div>
+        </div>
+        <div style="display:flex;align-items:flex-end;">
+          <span class="port-cta-btn ob">Let's talk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ TESTIMONIALS ════════ -->
+  <div class="strip gh">
+    <div class="strip-label">Testimonials</div>
+    <div class="testimonials gh">
+      <div class="test-word">Testimonials</div>
+      <div class="test-card gh">
+        <p>"Professional, precise, and incredibly fast."</p>
+        <p class="author">— Lukas Weber</p>
+      </div>
+    </div>
+  </div>
+  <div class="strip ob">
+    <div class="strip-label">Testimonials — marble texture</div>
+    <div class="testimonials ob">
+      <div class="test-bg"></div>
+      <div class="test-overlay"></div>
+      <div class="test-word">Testimonials</div>
+      <div class="test-card ob">
+        <p>"Professional, precise, and incredibly fast."</p>
+        <p class="author">— Lukas Weber</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ NEWS ════════ -->
+  <div class="strip gh">
+    <div class="strip-label">News</div>
+    <div class="news gh">
+      <h3>Keep up with my<br/>latest news</h3>
+      <div class="news-cards">
+        <div class="news-card"><div class="thumb" style="background-image:url('/news-1.jpg');background-size:cover;border-radius:4px;"></div><div class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+        <div class="news-divider gh"></div>
+        <div class="news-card"><div class="thumb" style="background-image:url('/news-2.jpg');background-size:cover;border-radius:4px;"></div><div class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+        <div class="news-divider gh"></div>
+        <div class="news-card"><div class="thumb" style="background-image:url('/news-3.jpg');background-size:cover;border-radius:4px;"></div><div class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="strip ob">
+    <div class="strip-label">News</div>
+    <div class="news ob">
+      <h3>Keep up with my<br/>latest news</h3>
+      <div class="news-cards">
+        <div class="news-card"><div class="thumb" style="background-image:url('/news-1.jpg');background-size:cover;border-radius:4px;"></div><div class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+        <div class="news-divider ob"></div>
+        <div class="news-card"><div class="thumb" style="background-image:url('/news-2.jpg');background-size:cover;border-radius:4px;"></div><div class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+        <div class="news-divider ob"></div>
+        <div class="news-card"><div class="thumb" style="background-image:url('/news-3.jpg');background-size:cover;border-radius:4px;"></div><div class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ FOOTER ════════ -->
+  <div class="strip gh">
+    <div class="strip-label">Footer</div>
+    <div class="footer gh">
+      <div class="footer-top">
+        <div>
+          <div class="footer-cta-label">Have a <b>project</b> in mind?</div>
+          <span class="footer-btn">Let's talk</span>
+        </div>
+        <div class="footer-social">Facebook<br/>Instagram<br/>X.com<br/>LinkedIn</div>
+      </div>
+      <div class="footer-wordmark">H.Studio</div>
+    </div>
+  </div>
+  <div class="strip ob">
+    <div class="strip-label">Footer</div>
+    <div class="footer ob">
+      <div class="footer-top">
+        <div>
+          <div class="footer-cta-label">Have a <b>project</b> in mind?</div>
+          <span class="footer-btn">Let's talk</span>
+        </div>
+        <div class="footer-social">Facebook<br/>Instagram<br/>X.com<br/>LinkedIn</div>
+      </div>
+      <div class="footer-wordmark">H.Studio</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

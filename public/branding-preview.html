@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Branding Iterations — Daniel Navarro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: 'Inter', sans-serif; background: #f5f5f5; color: #111; }
+  body { padding: 48px 24px 96px; }
+
+  .page-title {
+    max-width: 1200px; margin: 0 auto 48px; padding: 0 16px;
+    font-weight: 300; font-size: 32px; letter-spacing: -1.5px;
+  }
+  .page-title span { font-style: italic; font-family: 'Playfair Display', serif; }
+
+  .iteration {
+    max-width: 1200px; margin: 0 auto 64px;
+    background: #fff; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+  }
+  .iteration-header { padding: 32px 32px 24px; border-bottom: 1px solid #eee; }
+  .iteration-header h2 {
+    font-weight: 300; font-size: 40px; letter-spacing: -2px; line-height: 1; margin-bottom: 8px;
+  }
+  .iteration-header .tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    text-transform: uppercase; color: #666; letter-spacing: 0.5px;
+  }
+  .iteration-header p {
+    margin-top: 12px; font-size: 14px; line-height: 1.5; color: #444; max-width: 720px;
+  }
+
+  /* Swatches */
+  .swatches { display: flex; gap: 0; padding: 24px 32px; flex-wrap: wrap; }
+  .swatch {
+    display: flex; flex-direction: column; min-width: 120px; flex: 1;
+    border-radius: 6px; overflow: hidden; margin-right: 8px; margin-bottom: 8px;
+    border: 1px solid #eee;
+  }
+  .swatch .chip { height: 64px; }
+  .swatch .meta {
+    padding: 8px 10px; background: #fafafa; font-size: 11px;
+    font-family: 'JetBrains Mono', monospace; line-height: 1.4;
+  }
+  .swatch .meta strong { display: block; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; margin-bottom: 2px; }
+
+  /* Mockup wrappers */
+  .mockups { padding: 0 32px 32px; }
+  .mock {
+    border-radius: 8px; overflow: hidden; margin-bottom: 16px;
+    border: 1px solid #eaeaea;
+  }
+  .mock-label {
+    padding: 8px 16px; background: #f7f7f7;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: #666; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .mock-body { position: relative; }
+
+  /* === HERO MOCK === */
+  .hero-mock {
+    height: 280px; padding: 24px 32px; display: flex; flex-direction: column;
+    justify-content: space-between;
+  }
+  .hero-nav { display: flex; justify-content: space-between; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .hero-nav span { padding: 6px 12px; border-radius: 999px; }
+  .hero-name {
+    font-weight: 300; font-size: 88px; letter-spacing: -5px; line-height: 0.85;
+  }
+  .hero-name em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; }
+
+  /* === SERVICES MOCK === */
+  .services-mock {
+    padding: 32px; display: flex; gap: 24px; align-items: flex-start;
+  }
+  .services-mock h3 {
+    font-weight: 300; font-size: 56px; letter-spacing: -3px; line-height: 0.9; flex: 1;
+  }
+  .services-mock .svc-row { flex: 1.4; display: flex; flex-direction: column; gap: 16px; }
+  .svc-item { display: flex; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid; }
+  .svc-item .num { font-family: 'JetBrains Mono', monospace; font-size: 11px; opacity: 0.6; }
+  .svc-item .title { font-style: italic; font-weight: 700; font-size: 24px; letter-spacing: -1px; flex: 1; }
+  .svc-item .thumb { width: 64px; height: 64px; border-radius: 4px; }
+
+  /* === FOOTER MOCK === */
+  .footer-mock { padding: 32px; }
+  .footer-top { display: flex; justify-content: space-between; padding-bottom: 24px; border-bottom: 1px solid; }
+  .footer-cta-label { font-style: italic; font-weight: 300; font-size: 18px; letter-spacing: -0.7px; text-transform: uppercase; }
+  .footer-cta-label b { font-weight: 900; font-style: normal; }
+  .footer-cta-btn { display: inline-block; margin-top: 8px; padding: 8px 16px; border: 1px solid; border-radius: 999px; font-size: 12px; }
+  .footer-social { text-transform: uppercase; font-size: 13px; line-height: 1.4; text-align: right; }
+  .footer-wordmark {
+    margin-top: 32px;
+    font-weight: 600; font-size: 140px; letter-spacing: -8px; line-height: 0.8;
+    white-space: nowrap; overflow: hidden;
+  }
+
+  @media (max-width: 720px) {
+    .hero-name { font-size: 56px; letter-spacing: -3px; }
+    .services-mock { flex-direction: column; }
+    .footer-wordmark { font-size: 80px; letter-spacing: -4px; }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Branding iterations <span>&</span> palette study</h1>
+
+<!-- ============================================================
+     ITERATION 1 — DUSK HIGHWAY
+     ============================================================ -->
+<section class="iteration">
+  <header class="iteration-header">
+    <div class="tag">Option 01</div>
+    <h2>Dusk Highway</h2>
+    <p>Dark-dominant. The page reads like night driving — moody, cinematic, photographic. Amber pulls focus on CTAs and accents; cream replaces white for warmth.</p>
+  </header>
+
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#0F1A2A"></div><div class="meta"><strong>Page bg</strong>#0F1A2A</div></div>
+    <div class="swatch"><div class="chip" style="background:#0A0E15"></div><div class="meta"><strong>Section bg</strong>#0A0E15</div></div>
+    <div class="swatch"><div class="chip" style="background:#1F2A3D"></div><div class="meta"><strong>Slate</strong>#1F2A3D</div></div>
+    <div class="swatch"><div class="chip" style="background:#C89856"></div><div class="meta"><strong>Accent</strong>#C89856</div></div>
+    <div class="swatch"><div class="chip" style="background:#E8D4A8"></div><div class="meta"><strong>Text</strong>#E8D4A8</div></div>
+  </div>
+
+  <div class="mockups">
+    <!-- Hero -->
+    <div class="mock">
+      <div class="mock-label">Hero</div>
+      <div class="mock-body hero-mock" style="background:#0F1A2A; color:#E8D4A8;">
+        <div class="hero-nav">
+          <span style="background:rgba(232,212,168,0.12); color:#E8D4A8;">Menu</span>
+          <span style="background:#C89856; color:#0F1A2A;">Let's talk</span>
+        </div>
+        <div class="hero-name">Daniel<br/>Navarro <em style="color:#C89856;">&</em></div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="mock">
+      <div class="mock-label">Services</div>
+      <div class="mock-body services-mock" style="background:#0A0E15; color:#E8D4A8;">
+        <h3>Services <em style="font-family:'Playfair Display',serif;color:#C89856;">&</em><br/>Capabilities</h3>
+        <div class="svc-row">
+          <div class="svc-item" style="border-color:#1F2A3D;"><span class="num">01</span><span class="title">Brand Identity</span><div class="thumb" style="background:#1F2A3D;"></div></div>
+          <div class="svc-item" style="border-color:#1F2A3D;"><span class="num">02</span><span class="title" style="color:#C89856;">Art Direction</span><div class="thumb" style="background:#C89856;"></div></div>
+          <div class="svc-item" style="border-color:#1F2A3D;"><span class="num">03</span><span class="title">Web Design</span><div class="thumb" style="background:#1F2A3D;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mock">
+      <div class="mock-label">Footer</div>
+      <div class="mock-body footer-mock" style="background:#0A0E15; color:#E8D4A8;">
+        <div class="footer-top" style="border-color:#E8D4A8;">
+          <div>
+            <div class="footer-cta-label">Have a <b style="color:#C89856;">project</b> in mind?</div>
+            <span class="footer-cta-btn" style="border-color:#C89856; color:#C89856;">Let's talk</span>
+          </div>
+          <div class="footer-social">Facebook<br/>Instagram</div>
+          <div class="footer-social">X.com<br/>LinkedIn</div>
+        </div>
+        <div class="footer-wordmark" style="color:#E8D4A8;">H.Studio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ITERATION 2 — GOLDEN HOUR
+     ============================================================ -->
+<section class="iteration">
+  <header class="iteration-header">
+    <div class="tag">Option 02</div>
+    <h2>Golden Hour</h2>
+    <p>Light-dominant, inverted from #1. Warm parchment replaces white; navy becomes the ink. Burnt rust handles accents. Boutique, craft-driven, magazine-like — warmer than the current black & white.</p>
+  </header>
+
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#F0E3C8"></div><div class="meta"><strong>Page bg</strong>#F0E3C8</div></div>
+    <div class="swatch"><div class="chip" style="background:#E8D4A8"></div><div class="meta"><strong>Section bg</strong>#E8D4A8</div></div>
+    <div class="swatch"><div class="chip" style="background:#0F1A2A"></div><div class="meta"><strong>Ink</strong>#0F1A2A</div></div>
+    <div class="swatch"><div class="chip" style="background:#8E5530"></div><div class="meta"><strong>Accent</strong>#8E5530</div></div>
+    <div class="swatch"><div class="chip" style="background:#C89856"></div><div class="meta"><strong>Gold</strong>#C89856</div></div>
+  </div>
+
+  <div class="mockups">
+    <!-- Hero -->
+    <div class="mock">
+      <div class="mock-label">Hero</div>
+      <div class="mock-body hero-mock" style="background:#F0E3C8; color:#0F1A2A;">
+        <div class="hero-nav">
+          <span style="background:rgba(15,26,42,0.08); color:#0F1A2A;">Menu</span>
+          <span style="background:#0F1A2A; color:#F0E3C8;">Let's talk</span>
+        </div>
+        <div class="hero-name">Daniel<br/>Navarro <em style="color:#8E5530;">&</em></div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="mock">
+      <div class="mock-label">Services</div>
+      <div class="mock-body services-mock" style="background:#0F1A2A; color:#F0E3C8;">
+        <h3>Services <em style="font-family:'Playfair Display',serif;color:#C89856;">&</em><br/>Capabilities</h3>
+        <div class="svc-row">
+          <div class="svc-item" style="border-color:rgba(240,227,200,0.2);"><span class="num">01</span><span class="title">Brand Identity</span><div class="thumb" style="background:#1F2A3D;"></div></div>
+          <div class="svc-item" style="border-color:rgba(240,227,200,0.2);"><span class="num">02</span><span class="title" style="color:#C89856;">Art Direction</span><div class="thumb" style="background:#8E5530;"></div></div>
+          <div class="svc-item" style="border-color:rgba(240,227,200,0.2);"><span class="num">03</span><span class="title">Web Design</span><div class="thumb" style="background:#1F2A3D;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mock">
+      <div class="mock-label">Footer</div>
+      <div class="mock-body footer-mock" style="background:#0F1A2A; color:#F0E3C8;">
+        <div class="footer-top" style="border-color:#F0E3C8;">
+          <div>
+            <div class="footer-cta-label">Have a <b style="color:#C89856;">project</b> in mind?</div>
+            <span class="footer-cta-btn" style="border-color:#F0E3C8; color:#F0E3C8;">Let's talk</span>
+          </div>
+          <div class="footer-social">Facebook<br/>Instagram</div>
+          <div class="footer-social">X.com<br/>LinkedIn</div>
+        </div>
+        <div class="footer-wordmark" style="color:#F0E3C8;">H.Studio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ITERATION 3 — TWILIGHT CONTRAST
+     ============================================================ -->
+<section class="iteration">
+  <header class="iteration-header">
+    <div class="tag">Option 03</div>
+    <h2>Twilight Contrast</h2>
+    <p>Alternating sections — each commits to one palette color. Rhythmic, gallery-like, and the most distinctive from the current design. The page changes mood as you scroll.</p>
+  </header>
+
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#0F1A2A"></div><div class="meta"><strong>Navy</strong>#0F1A2A</div></div>
+    <div class="swatch"><div class="chip" style="background:#1F2A3D"></div><div class="meta"><strong>Slate</strong>#1F2A3D</div></div>
+    <div class="swatch"><div class="chip" style="background:#F0E3C8"></div><div class="meta"><strong>Parchment</strong>#F0E3C8</div></div>
+    <div class="swatch"><div class="chip" style="background:#C89856"></div><div class="meta"><strong>Amber</strong>#C89856</div></div>
+    <div class="swatch"><div class="chip" style="background:#8E5530"></div><div class="meta"><strong>Rust</strong>#8E5530</div></div>
+  </div>
+
+  <div class="mockups">
+    <!-- Hero -->
+    <div class="mock">
+      <div class="mock-label">Hero — Navy</div>
+      <div class="mock-body hero-mock" style="background:#0F1A2A; color:#F0E3C8;">
+        <div class="hero-nav">
+          <span style="background:rgba(240,227,200,0.12); color:#F0E3C8;">Menu</span>
+          <span style="background:#C89856; color:#0F1A2A;">Let's talk</span>
+        </div>
+        <div class="hero-name" style="color:#C89856;">Daniel<br/>Navarro <em style="color:#F0E3C8;">&</em></div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="mock">
+      <div class="mock-label">Services — Parchment</div>
+      <div class="mock-body services-mock" style="background:#F0E3C8; color:#0F1A2A;">
+        <h3>Services <em style="font-family:'Playfair Display',serif;color:#8E5530;">&</em><br/>Capabilities</h3>
+        <div class="svc-row">
+          <div class="svc-item" style="border-color:#0F1A2A;"><span class="num">01</span><span class="title">Brand Identity</span><div class="thumb" style="background:#0F1A2A;"></div></div>
+          <div class="svc-item" style="border-color:#0F1A2A;"><span class="num">02</span><span class="title" style="color:#8E5530;">Art Direction</span><div class="thumb" style="background:#C89856;"></div></div>
+          <div class="svc-item" style="border-color:#0F1A2A;"><span class="num">03</span><span class="title">Web Design</span><div class="thumb" style="background:#1F2A3D;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="mock">
+      <div class="mock-label">Testimonials — Slate</div>
+      <div class="mock-body" style="background:#1F2A3D; color:#F0E3C8; padding:48px 32px; text-align:center;">
+        <div style="font-weight:500; font-size:72px; letter-spacing:-4px; line-height:1;">Testimonials</div>
+        <div style="display:inline-block; margin-top:24px; padding:16px; background:#F0E3C8; color:#0F1A2A; transform:rotate(-3deg); width:240px; text-align:left; border-radius:4px;">
+          <div style="font-size:12px; font-weight:900; text-transform:uppercase;">Lukas Weber</div>
+          <div style="font-size:13px; margin-top:8px; line-height:1.4;">Professional, precise, and incredibly fast.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mock">
+      <div class="mock-label">Footer — Navy + Amber wordmark</div>
+      <div class="mock-body footer-mock" style="background:#0F1A2A; color:#F0E3C8;">
+        <div class="footer-top" style="border-color:#F0E3C8;">
+          <div>
+            <div class="footer-cta-label">Have a <b style="color:#C89856;">project</b> in mind?</div>
+            <span class="footer-cta-btn" style="border-color:#C89856; color:#C89856;">Let's talk</span>
+          </div>
+          <div class="footer-social">Facebook<br/>Instagram</div>
+          <div class="footer-social">X.com<br/>LinkedIn</div>
+        </div>
+        <div class="footer-wordmark" style="color:#C89856;">H.Studio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
