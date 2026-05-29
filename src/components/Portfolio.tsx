@@ -1,6 +1,5 @@
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 function CornerBracket({ className }: { className?: string }) {
   return (
@@ -65,7 +64,7 @@ function CtaBox() {
 type PortfolioItem = {
   _id: string;
   title: string;
-  image?: SanityImageSource;
+  image?: Parameters<typeof urlFor>[0];
   tags?: string[];
   tallOnDesktop?: boolean;
   link?: string | null;
