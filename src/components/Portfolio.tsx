@@ -1,3 +1,7 @@
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+
 function CornerBracket({ className }: { className?: string }) {
   return (
     <svg
@@ -31,40 +35,6 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-type Project = {
-  title: string;
-  image: string;
-  tags: string[];
-  tallOnDesktop?: boolean;
-};
-
-function ProjectCard({ title, image, tags, tallOnDesktop }: Project) {
-  return (
-    <div className="flex flex-col gap-[10px]">
-      <div
-        className={`relative w-full overflow-hidden h-[390px] ${
-          tallOnDesktop ? "lg:h-[744px]" : "lg:h-[699px]"
-        }`}
-      >
-        <img
-          src={image}
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute bottom-4 left-4 flex gap-3">
-          {tags.map((tag) => <Tag key={tag} label={tag} />)}
-        </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <p className="font-sans font-black text-[24px] lg:text-[36px] leading-[1.1] tracking-[-0.96px] lg:tracking-[-1.44px] uppercase whitespace-nowrap">
-          {title}
-        </p>
-        <ArrowIcon />
-      </div>
-    </div>
-  );
-}
-
 function CtaBox() {
   return (
     <div className="flex items-stretch gap-3 w-full lg:w-[465px]">
@@ -92,42 +62,89 @@ function CtaBox() {
   );
 }
 
-const leftProjects: Project[] = [
-  {
-    title: "Surfers Paradise",
-    image: "/project-1.jpg",
-    tags: ["Social Media", "Photography"],
-    tallOnDesktop: true,
-  },
-  {
-    title: "Cyberpunk Caffe",
-    image: "/project-2.jpg",
-    tags: ["Social Media", "Photography"],
-  },
+type PortfolioItem = {
+  _id: string;
+  title: string;
+  image?: SanityImageSource;
+  tags?: string[];
+  tallOnDesktop?: boolean;
+  link?: string | null;
+};
+
+const PORTFOLIO_QUERY = `*[_type == "portfolioItem"] | order(order asc) {
+  _id,
+  title,
+  image,
+  tags,
+  tallOnDesktop,
+  link
+}`;
+
+// Used while real images haven't been uploaded to Sanity yet.
+// Order: Surfers Paradise, Agency 976, Cyberpunk Caffe, Minimal Playground
+const FALLBACK_IMAGES = [
+  "/project-1.jpg",
+  "/project-3.jpg",
+  "/project-2.jpg",
+  "/project-4.jpg",
 ];
 
-const rightProjects: Project[] = [
-  {
-    title: "Agency 976",
-    image: "/project-3.jpg",
-    tags: ["Social Media", "Photography"],
-  },
-  {
-    title: "Minimal Playground",
-    image: "/project-4.jpg",
-    tags: ["Social Media", "Photography"],
-    tallOnDesktop: true,
-  },
-];
+function getImageSrc(item: PortfolioItem, index: number): string {
+  if (item.image) {
+    return urlFor(item.image).width(900).url();
+  }
+  return FALLBACK_IMAGES[index] ?? "/project-1.jpg";
+}
 
-export default function Portfolio() {
+function ProjectCard({ item, index }: { item: PortfolioItem; index: number }) {
+  const card = (
+    <div className="flex flex-col gap-[10px]">
+      <div
+        className={`relative w-full overflow-hidden h-[390px] ${
+          item.tallOnDesktop ? "lg:h-[744px]" : "lg:h-[699px]"
+        }`}
+      >
+        <img
+          src={getImageSrc(item, index)}
+          alt={item.title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute bottom-4 left-4 flex gap-3">
+          {item.tags?.map((tag) => <Tag key={tag} label={tag} />)}
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
+        <p className="font-sans font-black text-[24px] lg:text-[36px] leading-[1.1] tracking-[-0.96px] lg:tracking-[-1.44px] uppercase whitespace-nowrap">
+          {item.title}
+        </p>
+        <ArrowIcon />
+      </div>
+    </div>
+  );
+
+  if (item.link) {
+    return (
+      <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">
+        {card}
+      </a>
+    );
+  }
+  return card;
+}
+
+export default async function Portfolio() {
+  const items = await client.fetch<PortfolioItem[]>(PORTFOLIO_QUERY);
+
+  const indexed = items.map((item, i) => ({ item, i }));
+  const leftItems = indexed.filter(({ i }) => i % 2 === 0);
+  const rightItems = indexed.filter(({ i }) => i % 2 === 1);
+
   return (
     <section
       id="projects"
       className="w-full px-4 py-12 flex flex-col gap-8 lg:px-8 lg:py-[80px] lg:gap-[61px]"
       style={{ color: "var(--color-text)" }}
     >
-
       {/* Mobile header */}
       <div className="flex flex-col gap-4 uppercase lg:hidden">
         <p className="font-mono text-[14px] leading-[1.1]">[ portfolio ]</p>
@@ -158,8 +175,8 @@ export default function Portfolio() {
 
       {/* Mobile: single column */}
       <div className="flex flex-col gap-6 lg:hidden">
-        {[...leftProjects, ...rightProjects].map((p) => (
-          <ProjectCard key={p.title} {...p} />
+        {indexed.map(({ item, i }) => (
+          <ProjectCard key={item._id} item={item} index={i} />
         ))}
         <CtaBox />
       </div>
@@ -167,14 +184,17 @@ export default function Portfolio() {
       {/* Desktop: staggered two-column */}
       <div className="hidden lg:flex gap-6 items-end w-full">
         <div className="flex-1 flex flex-col gap-10 justify-between">
-          {leftProjects.map((p) => <ProjectCard key={p.title} {...p} />)}
+          {leftItems.map(({ item, i }) => (
+            <ProjectCard key={item._id} item={item} index={i} />
+          ))}
           <CtaBox />
         </div>
         <div className="flex-1 flex flex-col gap-[117px] pt-[240px]">
-          {rightProjects.map((p) => <ProjectCard key={p.title} {...p} />)}
+          {rightItems.map(({ item, i }) => (
+            <ProjectCard key={item._id} item={item} index={i} />
+          ))}
         </div>
       </div>
-
     </section>
   );
 }
