@@ -1,3 +1,11 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 function CornerBracket({ className }: { className?: string }) {
   return (
     <svg
@@ -14,6 +22,31 @@ function CornerBracket({ className }: { className?: string }) {
 }
 
 export default function Bio() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        imgRef.current,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="about"
@@ -58,11 +91,18 @@ export default function Bio() {
           {/* 002 label + portrait photo */}
           <div className="flex flex-col items-start gap-5 lg:flex-row lg:items-start lg:gap-6">
             <p className="font-mono text-[14px] leading-[1.1] uppercase hidden lg:block shrink-0">002</p>
-            <div className="w-full aspect-[422/594] lg:w-[436px] lg:h-[614px] lg:aspect-auto relative overflow-hidden">
+
+            {/* Image container — overflow-hidden clips both the cover and the parallax */}
+            <div
+              ref={containerRef}
+              className="w-full aspect-[422/594] lg:w-[436px] lg:h-[614px] lg:aspect-auto relative overflow-hidden"
+            >
               <img
+                ref={imgRef}
                 src="/about-photo.jpg"
                 alt="Portrait"
                 className="absolute inset-0 w-full h-full object-cover"
+                style={{ transformOrigin: "center center" }}
               />
             </div>
           </div>

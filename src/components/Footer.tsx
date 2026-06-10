@@ -15,19 +15,23 @@ export default function Footer() {
             </span>{" "}
             in mind?
           </p>
-          <button
+          <a
+            href="mailto:danielnavarrodesign@gmail.com"
             className="font-sans font-medium text-[14px] tracking-[-0.56px] px-4 py-3 rounded-full self-start"
             style={{ border: "1px solid var(--color-border-solid)" }}
           >
             Let&apos;s talk
-          </button>
+          </a>
         </div>
         <div className="flex flex-col gap-4">
-          {["Facebook", "Instagram", "X.COM", "LinkedIn"].map((link) => (
-            <p key={link} className="font-sans font-normal text-[18px] leading-[1.1] tracking-[-0.72px] uppercase">
-              {link}
-            </p>
-          ))}
+          <a
+            href="https://www.linkedin.com/in/meet-daniel-navarro/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-sans font-normal text-[18px] leading-[1.1] tracking-[-0.72px] uppercase"
+          >
+            LinkedIn
+          </a>
         </div>
         <div className="w-full h-px" style={{ backgroundColor: "var(--color-border-solid)" }} />
       </div>
@@ -50,13 +54,14 @@ export default function Footer() {
               Let&apos;s talk
             </button>
           </div>
-          <div className="font-sans font-normal text-[18px] leading-[1.1] tracking-[-0.72px] text-center uppercase w-[298px]">
-            <p>Facebook</p>
-            <p>Instagram</p>
-          </div>
           <div className="font-sans font-normal text-[18px] leading-[1.1] tracking-[-0.72px] text-right uppercase w-[298px]">
-            <p>X.com</p>
-            <p>LinkedIn</p>
+            <a
+              href="https://www.linkedin.com/in/meet-daniel-navarro/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
         <div className="w-full h-px" style={{ backgroundColor: "var(--color-border-solid)" }} />
@@ -73,9 +78,6 @@ export default function Footer() {
           </a>
         </div>
         <div className="flex flex-col gap-3 items-start w-full overflow-hidden">
-          <p className="font-mono font-normal text-[10px] leading-[1.1] uppercase">
-            [ Coded By Claude ]
-          </p>
           <p className="font-sans font-semibold text-[91px] leading-[0.8] tracking-[-5.49px] capitalize whitespace-nowrap">
             H.Studio
           </p>
@@ -88,13 +90,6 @@ export default function Footer() {
           <p className="absolute left-1 top-1/2 -translate-y-1/2 font-sans font-semibold text-[290px] leading-[0.8] tracking-[-17.4px] capitalize whitespace-nowrap">
             H.Studio
           </p>
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 flex h-[160px] w-[15px] items-center justify-center">
-            <div className="-rotate-90 flex-none">
-              <p className="font-mono font-normal text-[14px] leading-[1.1] uppercase whitespace-nowrap">
-                [ Coded By Claude ]
-              </p>
-            </div>
-          </div>
         </div>
         <div className="flex gap-[34px] items-center pb-8 shrink-0">
           <a href="#" className="font-sans font-normal text-[12px] leading-[1.1] tracking-[-0.48px] uppercase underline">
