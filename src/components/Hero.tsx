@@ -43,6 +43,7 @@ export default function Hero() {
         <img
           alt="Daniel Navarro"
           src="/hero.png"
+          fetchPriority="high"
           className="h-[90%] w-auto object-contain object-bottom pointer-events-none"
         />
       </div>

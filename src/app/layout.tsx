@@ -33,6 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/hero.png" as="image" fetchPriority="high" />
+      </head>
       <body className={`${inter.variable} ${geistMono.variable} ${playfair.variable} antialiased`}>
         {children}
       </body>
